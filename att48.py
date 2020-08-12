@@ -143,6 +143,7 @@ def Q_method():
             # print("state:",state,"before_Q_table[state]:",Q_table[state].astype(np.int))
             action=choose_action(state,Q_table,now_path)
             # print("action:", action)
+            #TODO ①
             state_,reward=get_env_feedback(state,action)
             q_predict=Q_table[state][action]
             if(i!=N_STATE-2):
@@ -164,8 +165,9 @@ def Q_method():
         q_target=reward
         Q_table[fin_state][ori] += ALPHA * (q_target - q_predict)
         # now_path.append(ori)
-        update_env(episode)
+        update_env(episode) #对于epsilon的更新包括在了learn里
         # now_res=get_best_path(Q_table,ori)
+        #TODO ②
         now_res=get_best_path(Q_table)
         score.append(now_res)
         # if(now_res<=MIN_BOUND):
